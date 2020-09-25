@@ -18,9 +18,9 @@ public class CustomerSubscriber {
     @RabbitListener(queues = "#{customerQueue.name}")
     public void subscribeCustomer(Customer inCustomer) {
         System.out.println("Message read from myQueue : " + inCustomer.toString());
-        Customer customer = customerService.getCustomerDetails(inCustomer.getId());
-        System.out.println(customer.toString());
-        CustomerSos customerSos = new CustomerSos(customer.getId(), customer.getFirstName(), customer.getLastName(), customer.getEmail());
+        //Customer customer = customerService.getCustomerDetails(inCustomer.getId());
+        System.out.println(inCustomer.toString());
+        CustomerSos customerSos = new CustomerSos(inCustomer.getId(), inCustomer.getFirstName(), inCustomer.getLastName(), inCustomer.getEmail());
         customerSosRepository.saveAndFlush(customerSos);
     }
 }
