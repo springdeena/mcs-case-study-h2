@@ -1,0 +1,11 @@
+applications:
+  - name: customer-service
+instances: 1
+memory: 1G
+path: target/customer-service.jar
+routes:
+  - route: customer-service-deen.cfapps.io
+services:
+  - config-server
+  - eureka-server
+  - rabbit-service

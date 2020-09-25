@@ -1,0 +1,9 @@
+applications:
+  - name: item-service
+instances: 1
+memory: 1G
+path: target/item-service.jar
+routes:
+  - route: item-service-deen.cfapps.io
+services:
+  - eureka-server
