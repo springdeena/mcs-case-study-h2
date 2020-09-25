@@ -1,6 +1,6 @@
 # mcs-case-study-cloud
 
-**Local**
+## Local
 
 **List Customers**
 
@@ -128,7 +128,7 @@ curl --location --request POST 'http://localhost:8102/orders' \
 **Config refresh**      -   curl --location --request POST 'http://localhost:8100/actuator/refresh'
 
 
-**Cloud**
+## Cloud
 
 **List Customers**
 
