@@ -51,14 +51,6 @@ public class SalesOrderController {
             consumes = "application/json")
     @ResponseBody
     public ResponseEntity<Object> saveOrders(@RequestBody Order order){
-        Customer customer;
-        try{
-            customer = customerService.getCustomerDetails(order.getCustomerId());
-        } catch(Exception e ) {
-            throw new RuntimeException(order.getCustomerId()+" - Customer not found");
-        }
-        CustomerSos customerSos = new CustomerSos(customer.getId(), customer.getFirstName(), customer.getLastName(), customer.getEmail());
-        customerSosRepository.saveAndFlush(customerSos);
         Optional<CustomerSos> optionalCustomerSos = customerSosRepository.findById(order.getCustomerId());
         if(!optionalCustomerSos.isPresent()){
             throw new RuntimeException(order.getCustomerId()+" - Customer not found");
