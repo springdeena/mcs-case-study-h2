@@ -1,6 +1,6 @@
 applications:
   - name: customer-service
-instances: 2
+instances: 1
 memory: 1G
 path: target/customer-service.jar
 routes:
