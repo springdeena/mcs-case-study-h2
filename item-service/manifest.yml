@@ -7,3 +7,4 @@ routes:
   - route: item-service-deen.cfapps.io
 services:
   - eureka-server
+  - mysqldb

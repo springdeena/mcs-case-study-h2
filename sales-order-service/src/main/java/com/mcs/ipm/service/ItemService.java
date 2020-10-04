@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ItemService {
 
     @GetMapping("/items/{itemName}")
-    public Item getItemByName(@PathVariable String itemName);
+    public Item getItemByName(@PathVariable(name = "itemName") String itemName);
 }

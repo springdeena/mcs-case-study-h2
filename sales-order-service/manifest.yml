@@ -8,3 +8,4 @@ routes:
 services:
   - eureka-server
   - rabbit-service
+  - mysqldb

@@ -92,8 +92,8 @@ public class SalesOrderController {
     }
 
     @GetMapping(value="/orders/{orderId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public SalesOrder getItemByName(@PathVariable Long orderId) {
-        logger.info("Inside getItemByName");
+    public SalesOrder getOrderById(@PathVariable Long orderId) {
+        logger.info("Inside getOrderById");
         Optional<SalesOrder> salesOrder = salesOrderRepository.findById(orderId);
         if(!salesOrder.isPresent())
             throw new RuntimeException(orderId+" - Order not found");
