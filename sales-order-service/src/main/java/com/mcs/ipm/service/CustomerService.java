@@ -13,4 +13,7 @@ public interface CustomerService {
 
     @GetMapping("/customers/{customerId}")
     public Customer getCustomerDetails(@PathVariable(name="customerId") Long customerId);
+
+    @GetMapping("/customers/fault-customer")
+    public Customer getFaultCustomer();
 }

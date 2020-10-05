@@ -99,4 +99,10 @@ public class SalesOrderController {
             throw new RuntimeException(orderId+" - Order not found");
         return salesOrder.get();
     }
+
+    @GetMapping(value="fault-customer", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Customer getFaultCustomer() {
+        Customer customer = customerService.getFaultCustomer();
+        return customer;
+    }
 }
