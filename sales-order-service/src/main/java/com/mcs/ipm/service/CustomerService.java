@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RibbonClient(name = "customer-service")
 public interface CustomerService {
 
-    @GetMapping("/customers/{customerId}")
-    public Customer getCustomerDetails(@PathVariable(name="customerId") Long customerId);
-
-    @GetMapping("/customers/fault-customer")
-    public Customer getFaultCustomer();
+    @GetMapping("/customers/default-customer")
+    public Customer getDefaultCustomer();
 }

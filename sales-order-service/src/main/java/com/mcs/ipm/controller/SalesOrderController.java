@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.partitioningBy;
@@ -57,10 +56,8 @@ public class SalesOrderController {
         }
         List<Item> orderItems = new ArrayList<>();
         for(String itemName: order.getItemNames()) {
-            Item item;
-            try{
-                item = itemService.getItemByName(itemName);
-            } catch(Exception e){
+            Item item = itemService.getItemByName(itemName);
+            if(item == null){
                 throw new RuntimeException(itemName+" - Item not found");
             }
             orderItems.add(item);
@@ -100,9 +97,15 @@ public class SalesOrderController {
         return salesOrder.get();
     }
 
-    @GetMapping(value="fault-customer", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Customer getFaultCustomer() {
-        Customer customer = customerService.getFaultCustomer();
+    @GetMapping(value="/default-customer", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Customer getDefaultCustomer() {
+        Customer customer = customerService.getDefaultCustomer();
         return customer;
+    }
+
+    @GetMapping(value="/fault-item", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Item getFaultItem() {
+        Item item = itemService.getItemByName("TV");
+        return item;
     }
 }

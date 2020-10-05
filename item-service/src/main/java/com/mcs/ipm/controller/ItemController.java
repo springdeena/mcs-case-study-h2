@@ -17,14 +17,12 @@ import java.util.Optional;
 @Slf4j
 public class ItemController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
-
     @Autowired
     ItemRepository itemRepository;
 
     @GetMapping(value = "/items", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Item> getAllItems() {
-        logger.info("Inside getAllItems");
+        log.info("Inside getAllItems");
         List<Item> items = itemRepository.findAll();
         log.info(items.size()+" Items(s) found!");
         return items;
@@ -32,10 +30,7 @@ public class ItemController {
 
     @GetMapping(value="/items/{itemName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Item getItemByName(@PathVariable String itemName) {
-        logger.info("Inside getItemByName");
         Item item = itemRepository.findByName(itemName);
-        if(item == null)
-            throw new RuntimeException(itemName+" - Item not found");
         return item;
     }
 

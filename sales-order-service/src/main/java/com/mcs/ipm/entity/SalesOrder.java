@@ -11,11 +11,10 @@ import java.util.Date;
 
 @Entity
 @Data
-@SequenceGenerator(name="sales_order_seq", allocationSize=100)
 public class SalesOrder {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sales_order_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Date orderDate;

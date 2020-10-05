@@ -3,7 +3,6 @@ package com.mcs.ipm.controller;
 import com.mcs.ipm.config.CustomerConfiguration;
 import com.mcs.ipm.entity.Customer;
 import com.mcs.ipm.repository.CustomerRepository;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +21,8 @@ import java.util.Optional;
 @Slf4j
 public class CustomerController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
-
     @Autowired
     CustomerRepository customerRepository;
-
-    @Autowired
-    Environment environment;
 
     @Autowired
     CustomerConfiguration customerConfiguration;
@@ -45,7 +38,7 @@ public class CustomerController {
 
     @GetMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Customer> getAllCustomers() {
-        logger.info("Inside getCustomerDetails");
+        log.info("Inside getAllCustomers");
         List<Customer> customers = customerRepository.findAll();
         log.info(customers.size()+" Customer(s) found!");
         return customers;
@@ -53,7 +46,7 @@ public class CustomerController {
 
     @GetMapping(value = "/customers/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Customer getCustomerDetails(@PathVariable Long customerId) {
-        logger.info("Inside getCustomerDetails");
+        log.info("Inside getCustomerDetails");
         Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
         if(!optionalCustomer.isPresent())
             throw new RuntimeException(customerId+" - Customer not found");
@@ -90,13 +83,8 @@ public class CustomerController {
         log.info(customerId+" Customer removed!");
     }
 
-    @GetMapping(value="/customers/fault-customer", produces = MediaType.APPLICATION_JSON_VALUE)
-    @HystrixCommand(fallbackMethod = "fallBackCustomerDetails")
-    public Customer getCustomerDetailsFaultTolerance() {
-        throw new RuntimeException("Some issue");
-    }
-
-    public Customer fallBackCustomerDetails() {
+    @GetMapping(value="/customers/default-customer", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Customer getDefaultCustomer() {
         Customer defaultCustomer = new Customer(customerConfiguration.getId(), customerConfiguration.getFirstName(), customerConfiguration.getLastName(), customerConfiguration.getEmail());
         return defaultCustomer;
     }
