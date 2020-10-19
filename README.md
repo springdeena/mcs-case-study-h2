@@ -2,6 +2,8 @@
 
 Rabbit MQ Installation needed.
 
+Use mcs-case-study-postman-collection.json to import the collection to postman.
+
 ## Local
 
 **List Customers**
